@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATANOR LAB · Suite de alquimia digital</title>
+<meta name="description" content="ATANOR LAB reúne cálculos químicos, cuadernos de práctica, gráficas e informes en una sola aplicación de apoyo para el laboratorio.">
+<style>
+:root{--bg:#f4f6fa;--surface:#fff;--line:#e1e7f0;--text:#101827;--muted:#55627a;--accent:#2563eb;--accent2:#0ea5e9;--on-accent:#fff;--glow:rgba(37,99,235,.12);color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--surface:#1b2638;--line:#29364a;--text:#e8eefb;--muted:#9aa8c2;--accent:#3b82f6;--accent2:#38bdf8;--glow:rgba(56,189,248,.14);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1220;--surface:#1b2638;--line:#29364a;--text:#e8eefb;--muted:#9aa8c2;--accent:#3b82f6;--accent2:#38bdf8;--glow:rgba(56,189,248,.14);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.09em}
+.brand svg{width:26px;height:26px;color:var(--accent2)}
+.links{display:flex;gap:22px;align-items:center;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;box-shadow:0 8px 24px var(--glow)}
+.btn:hover{transform:translateY(-1px)}
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{font-size:12px;letter-spacing:.16em;color:var(--accent2);font-weight:700;text-transform:uppercase}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.08;margin:12px 0 18px;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:18px;max-width:520px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.stats{display:flex;gap:28px;margin-top:34px;flex-wrap:wrap}
+.stats b{display:block;font-size:26px}
+.stats small{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.demo{box-shadow:0 20px 60px var(--glow)}
+.demo h3{margin:0 0 4px;font-size:14px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase}
+.demo p.sub{margin:0 0 16px;color:var(--muted);font-size:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}
+select,input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
+select:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.res{margin-top:18px;padding:16px;border-radius:14px;background:var(--bg);border:1px dashed var(--line);min-height:96px}
+.res .eq{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--muted)}
+.res .val{font-size:28px;font-weight:800;margin-top:4px}
+section{padding:64px 0}
+.title{max-width:640px;margin-bottom:34px}
+.title h2{font-size:clamp(26px,3.4vw,36px);margin:8px 0 10px;letter-spacing:-.01em}
+.title p{color:var(--muted);margin:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--glow);color:var(--accent2);margin-bottom:14px}
+.ico svg{width:22px;height:22px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.cats h3{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;margin:0 0 10px}
+.cats h3 em{font-style:normal;font-size:12px;color:var(--accent2);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.fmt{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.fmt span{padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-weight:700;font-size:14px}
+ul.ticks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+ul.ticks li{display:flex;gap:12px;color:var(--muted)}
+ul.ticks li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--glow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 7' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/cover}
+ul.ticks b{color:var(--text)}
+.final{text-align:center;padding:72px 24px;border-radius:24px;background:linear-gradient(135deg,#101827,#1d3a8a);color:#fff;border:1px solid var(--line)}
+.final p{color:#c4d3f2;max-width:520px;margin:0 auto 26px}
+.final h2{font-size:clamp(26px,3.6vw,38px);margin:0 0 12px}
+.final .btn.primary{background:#fff;color:#101827;box-shadow:none}
+.final .btn:not(.primary){background:transparent;color:#fff;border-color:#ffffff55}
+footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
+footer .brand{justify-content:center;color:var(--text);margin-bottom:10px}
+.thero{padding:56px 0 24px}
+.idx{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.idx button{font:inherit;font-size:13.5px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.idx button:hover{border-color:var(--accent2);color:var(--accent2)}
+.tlist{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:20px 0 40px}
+.tut{position:relative;padding-top:56px}
+.tn{position:absolute;top:18px;left:24px;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.tut h3{font-size:19px}
+.tut ol{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:15px;display:grid;gap:7px}
+.tut ol b,.tut ol li::marker{color:var(--text)}
+.tip{margin-top:14px;padding:10px 14px;border-radius:12px;background:var(--glow);font-size:14px;color:var(--text)}
+[hidden]{display:none!important}
+@media (max-width:860px){.tlist{grid-template-columns:1fr}.hero,.split{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.links a.h{display:none}.hero{padding-top:40px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/><path d="M7.5 15h9"/></svg>ATANOR LAB</a>
+  <nav class="links"><a class="h" href="#funciones">Funciones</a><a class="h" href="#calculos">Cálculos</a><a class="h" href="#informes">Informes</a><a class="h" href="#tutoriales">Tutoriales</a><a class="h" href="#nosotros">Nosotros</a><a class="btn primary" href="#descargar" style="padding:8px 16px;color:#fff">Obtener app</a></nav>
+</div></header>
+
+<main id="inicio"><div id="v-home">
+<div class="wrap hero">
+  <div>
+    <div class="eyebrow">Suite de alquimia digital</div>
+    <h1>El laboratorio, <span>ordenado en una sola app.</span></h1>
+    <p class="lead">Cálculos químicos, cuadernos de práctica, gráficas e informes listos para entregar. Diseñada para estudiantes que quieren trabajar con claridad y sin perder datos.</p>
+    <div class="cta"><a class="btn primary" href="#descargar">Obtener la aplicación</a><a class="btn" href="#calculos">Ver los cálculos</a><a class="btn" href="#tutoriales">Tutoriales</a></div>
+    <div class="stats"><div><b>37</b><small>cálculos incluidos</small></div><div><b>3</b><small>formatos de exportación</small></div><div><b>100 %</b><small>funciona sin conexión</small></div></div>
+  </div>
+  <div class="card demo">
+    <h3>Pruébalo ahora</h3>
+    <p class="sub">Una muestra de cómo ATANOR LAB muestra el procedimiento, no solo el resultado.</p>
+    <label for="sel">Cálculo</label>
+    <select id="sel"></select>
+    <div id="campos"></div>
+    <div class="res" id="res" aria-live="polite"><div class="eq">Introduce los valores para calcular.</div></div>
+  </div>
+</div>
+
+<section id="funciones"><div class="wrap">
+  <div class="title"><div class="eyebrow">Funciones</div><h2>Todo lo que necesitas en cada práctica</h2><p>Desde el cálculo rápido hasta el informe final, sin cambiar de herramienta.</p></div>
+  <div class="grid3">
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2m4 0h2M8 16h2m4 0h2"/></svg></div><h3>Centro de cálculos</h3><p>Densidad, pH, molaridad, dilución, valoraciones, estadística y más, con sustitución y análisis paso a paso.</p></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h4"/></svg></div><h3>Cuadernos de práctica</h3><p>Un cuaderno independiente por práctica: objetivos, materiales, procedimiento y mediciones, guardados en tu dispositivo.</p></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V4m0 16h16"/><path d="M8 15l3-4 3 2 5-6"/></svg></div><h3>Gráficas y estadística</h3><p>Resumen estadístico y gráfica de tus mediciones, con pruebas Q de Dixon y Grubbs para datos dudosos.</p></div>
+  </div>
+</div></section>
+
+<section id="calculos" class="band"><div class="wrap">
+  <div class="title"><div class="eyebrow">Catálogo</div><h2>37 cálculos en 7 áreas</h2><p>Cada uno con su ecuación, unidades y procedimiento.</p></div>
+  <div class="cats" id="cats"></div>
+</div></section>
+
+<section id="informes"><div class="wrap split">
+  <div>
+    <div class="eyebrow">Informes</div>
+    <h2 style="font-size:clamp(26px,3.4vw,36px);margin:8px 0 12px">De la medición al informe, en un toque</h2>
+    <p style="color:var(--muted)">Exporta un cálculo individual o el cuaderno completo con los datos del grupo y de la práctica, listo para revisar y entregar.</p>
+    <div class="fmt"><span>PDF</span><span>Word (.docx)</span><span>Excel (.xlsx)</span></div>
+  </div>
+  <div class="card"><ul class="ticks">
+    <li><span><b>Historial de cálculos.</b> Cada resultado guardado puede exportarse en PDF o Word.</span></li>
+    <li><span><b>Todo a Excel.</b> Lleva el historial completo a una hoja de cálculo con un botón.</span></li>
+    <li><span><b>Precisión a tu medida.</b> Elige de 2 a 6 cifras decimales.</span></li>
+    <li><span><b>Modo claro y oscuro.</b> Cómoda en el laboratorio y en la biblioteca.</span></li>
+  </ul></div>
+</div></section>
+
+<section id="nosotros" class="band"><div class="wrap split">
+  <div>
+    <div class="eyebrow">Nosotros</div>
+    <h2 style="font-size:clamp(26px,3.4vw,36px);margin:8px 0 12px">Una herramienta de apoyo académico</h2>
+    <p style="color:var(--muted)">Nuestra misión es ayudar a los estudiantes a organizar sus prácticas de laboratorio, calcular con mayor claridad y consultar sus resultados de forma sencilla y ordenada.</p>
+  </div>
+  <div class="card"><ul class="ticks">
+    <li><span><b>Privada por diseño.</b> Tus datos se guardan localmente en tu dispositivo.</span></li>
+    <li><span><b>Sin conexión.</b> Funciona donde no hay internet, como en muchos laboratorios.</span></li>
+    <li><span><b>Tú tienes el control.</b> Puedes borrar todos los datos guardados cuando quieras.</span></li>
+  </ul></div>
+</div></section>
+
+<section id="descargar"><div class="wrap"><div class="final">
+  <h2>Lleva ATANOR LAB a tu próxima práctica</h2>
+  <p>Cálculo, registro y aprendizaje en un solo lugar.</p>
+  <div class="cta" style="justify-content:center;margin:0"><a class="btn primary" id="apk" href="#descargar">Descargar la aplicación</a><a class="btn" href="#inicio">Volver al inicio</a></div><p id="apkmsg" hidden style="margin:18px auto 0;font-size:14px">La descarga estará disponible muy pronto.</p>
+</div></div></section>
+</div>
+<div id="v-tut" hidden><div class="wrap">
+<div class="thero"><div class="eyebrow">Tutoriales</div><h1 style="font-size:clamp(30px,4.4vw,46px)">Aprende a usar <span>cada función</span></h1><p class="lead">Guías cortas, paso a paso, para sacarle el máximo provecho a ATANOR LAB en tus prácticas.</p>
+<div class="idx"><button data-go="t1">1 · Panel de inicio</button><button data-go="t2">2 · Cálculos</button><button data-go="t3">3 · Datos experimentales</button><button data-go="t4">4 · Cuaderno</button><button data-go="t5">5 · Historial</button><button data-go="t6">6 · Informes</button><button data-go="t7">7 · Configuración</button></div></div>
+<div class="tlist">
+<article class="card tut" id="t1"><div class="tn">1</div><h3>Panel de inicio</h3><p>Es la primera pantalla: un resumen de tu actividad y accesos directos.</p><ol><li>Abre la app y revisa las tres tarjetas: cálculos disponibles, registros guardados y datos cargados.</li><li>Usa <b>Abrir cálculos</b> para ir directo al catálogo o <b>Abrir cuaderno</b> para continuar tu práctica.</li><li>En el celular, abre el menú lateral (☰) para moverte entre secciones; en pantallas anchas el menú siempre está visible.</li></ol></article>
+<article class="card tut" id="t2"><div class="tn">2</div><h3>Cálculos</h3><p>El corazón de la app: 37 cálculos con procedimiento completo.</p><ol><li>Entra a <b>Cálculos</b> y escribe en <b>Buscar cálculo</b> (por ejemplo: pH, molaridad, prueba Q).</li><li>O filtra con las categorías que aparecen arriba: propiedades físicas, estadística, soluciones, ácidos y bases, etc.</li><li>Toca el cálculo que necesitas. Verás su ecuación y las casillas que debes llenar.</li><li>Escribe los valores respetando las unidades indicadas en cada casilla. En los cálculos estadísticos, separa los datos con punto y coma o con espacios.</li><li>Pulsa <b>Calcular resultado</b>. Aparecerán el resultado, los datos ingresados, la sustitución con el procedimiento y un análisis.</li><li>Desde ahí mismo puedes usar <b>Exportar a PDF</b> o <b>Exportar a Word</b>.</li></ol><div class="tip">Cada resultado se guarda solo en el historial. Si aparece “Revisa los datos”, comprueba que no haya casillas vacías, texto o valores fuera de rango.</div></article>
+<article class="card tut" id="t3"><div class="tn">3</div><h3>Datos experimentales</h3><p>Organiza tus mediciones y obtén estadística y gráfica al instante.</p><ol><li>Abre <b>Datos experimentales</b> para ver la tabla de mediciones con su unidad.</li><li>Revisa el <b>Resumen estadístico</b> de tus datos.</li><li>Cuando tengas al menos 2 mediciones numéricas, la <b>Gráfica</b> se dibuja automáticamente.</li><li>Usa <b>Abrir Cuaderno</b> para seguir editando o <b>Exportar PDF</b> para sacar el reporte.</li></ol></article>
+<article class="card tut" id="t4"><div class="tn">4</div><h3>Cuaderno de práctica</h3><p>Un bloc de notas independiente por cada práctica de laboratorio.</p><ol><li>En <b>Cuaderno</b>, toca <b>Nuevo cuaderno</b> y escribe el nombre de la práctica.</li><li>Completa los datos de la práctica: grupo, objetivos, materiales y procedimiento.</li><li>En <b>Agregar medición</b> escribe cada valor (por ejemplo 12.45) y añádelo. Se numeran en orden.</li><li>Pulsa <b>Guardar cuaderno</b>. Todo queda en tu dispositivo.</li><li>Cambia entre prácticas con el selector <b>Cuaderno activo</b>. Para quitar una, usa <b>Eliminar actual</b>.</li></ol><div class="tip">Puedes exportar el cuaderno completo en PDF, Word o Excel desde los botones al final de la pantalla.</div></article>
+<article class="card tut" id="t5"><div class="tn">5</div><h3>Historial</h3><p>Todos tus cálculos guardados, siempre a la mano.</p><ol><li>Abre <b>Historial</b> para ver la lista de resultados anteriores.</li><li>En el menú (⋮) de cada registro elige <b>Exportar PDF</b>, <b>Exportar Word</b> o <b>Eliminar</b>.</li><li>Para llevar todo a una hoja de cálculo, pulsa <b>Exportar historial a Excel</b>.</li></ol></article>
+<article class="card tut" id="t6"><div class="tn">6</div><h3>Informes</h3><p>Convierte tu trabajo en un documento listo para entregar.</p><ol><li>Entra a <b>Informes</b>.</li><li>Elige qué exportar: el cuaderno activo completo o un cálculo individual guardado.</li><li>Selecciona el formato: <b>PDF</b>, <b>Word (.docx)</b> o <b>Excel (.xlsx)</b>.</li><li>Confirma el nombre del archivo cuando la app lo pida.</li><li>Elige con qué aplicación compartirlo (correo, mensajería, almacenamiento en la nube).</li></ol></article>
+<article class="card tut" id="t7"><div class="tn">7</div><h3>Configuración</h3><p>Ajusta la app a tu forma de trabajar.</p><ol><li><b>Modo oscuro:</b> activa o desactiva el tema.</li><li><b>Cifras decimales:</b> elige entre 2 y 6 decimales para los resultados.</li><li><b>Borrar datos guardados:</b> elimina cuadernos, mediciones e historial de este dispositivo. No se puede deshacer.</li></ol><div class="tip">Los datos se guardan solo en tu dispositivo y la app funciona sin conexión.</div></article>
+</div>
+<div style="text-align:center;padding:8px 0 56px"><a class="btn primary" href="#descargar">Obtener la aplicación</a> <a class="btn" href="#inicio">Volver al inicio</a></div>
+</div></div>
+</main>
+
+<footer><div class="wrap">
+  <div class="brand">ATANOR LAB</div>
+  <div>Cálculo · Registro · Aprendizaje</div>
+  <p style="max-width:560px;margin:12px auto 0">ATANOR LAB es una herramienta de apoyo. Los datos ingresados y los resultados deben contrastarse con las indicaciones de cada práctica y del docente.</p>
+</div></footer>
+
+<script>
+const CATS={
+"Propiedades físicas":["Densidad","Masa","Volumen","Número de moles","Masa molar","Calor absorbido o liberado","Ley de gases ideales"],
+"Estadística":["Media","Mediana","Varianza muestral","Desviación estándar","Coeficiente de variación","Prueba Q de Dixon","Prueba de Grubbs"],
+"Errores e incertidumbres":["Error absoluto","Error relativo porcentual","Incertidumbre estándar de la media","Intervalo de confianza (95 %)"],
+"Soluciones":["Molaridad","Dilución","% m/v","% m/m","% v/v","ppm","Molalidad","Normalidad"],
+"Química analítica":["Reactivo límite","Rendimiento porcentual","Ley de Beer-Lambert","Valoración ácido-base"],
+"Electroquímica":["Ley de Faraday","Potencial de Nernst"],
+"Ácidos y bases":["pH","pOH","[H₃O⁺] desde pH","[OH⁻] desde pOH","Relación pH y pOH"]};
+const cats=document.getElementById("cats");
+Object.entries(CATS).forEach(([k,v])=>{const d=document.createElement("div");d.className="card";
+d.innerHTML="<h3>"+k+"<em>"+v.length+"</em></h3><div class='chips'>"+v.map(x=>"<span>"+x+"</span>").join("")+"</div>";cats.appendChild(d)});
+
+const fx=v=>isFinite(v)?(+v.toPrecision(5)).toString():"—";
+const DEMOS={
+"pH":{eq:"pH = −log₁₀[H₃O⁺]",f:[["Concentración de H₃O⁺ (mol/L)","1e-3"]],run:([c])=>{if(c<=0)return null;const r=-Math.log10(c);return[r,"pH = −log₁₀("+c+") = "+fx(r),""]}},
+"Densidad":{eq:"ρ = m / V",f:[["Masa (g)","25"],["Volumen (mL)","20"]],run:([m,v])=>{if(v<=0)return null;const r=m/v;return[r,"ρ = "+m+" / "+v,"g/mL"]}},
+"Molaridad":{eq:"C = n / V",f:[["Moles de soluto (mol)","0.05"],["Volumen de solución (L)","0.25"]],run:([n,v])=>{if(v<=0)return null;return[n/v,"C = "+n+" / "+v,"mol/L"]}},
+"Error relativo porcentual":{eq:"Er (%) = |xexp − xreal| / |xreal| × 100",f:[["Valor experimental","9.78"],["Valor real","9.81"]],run:([e,t])=>{if(t==0)return null;return[Math.abs(e-t)/Math.abs(t)*100,"Er = |"+e+" − "+t+"| / |"+t+"| × 100","%"]}}};
+const sel=document.getElementById("sel"),campos=document.getElementById("campos"),res=document.getElementById("res");
+Object.keys(DEMOS).forEach(k=>sel.add(new Option(k,k)));
+function pintar(){const d=DEMOS[sel.value];campos.innerHTML=d.f.map((x,i)=>"<label for='c"+i+"'>"+x[0]+"</label><input id='c"+i+"' inputmode='decimal' value='"+x[1]+"'>").join("");
+campos.querySelectorAll("input").forEach(i=>i.addEventListener("input",calc));calc()}
+function calc(){const d=DEMOS[sel.value];const v=[...campos.querySelectorAll("input")].map(i=>parseFloat(i.value.replace(",",".")));
+if(v.some(isNaN)){res.innerHTML="<div class='eq'>Revisa los datos ingresados.</div>";return}
+const o=d.run(v);if(!o){res.innerHTML="<div class='eq'>Revisa los datos: valor fuera de dominio.</div>";return}
+res.innerHTML="<div class='eq'>"+d.eq+"</div><div class='eq'>"+o[1]+"</div><div class='val'>"+fx(o[0])+" <small style='font-size:14px;color:var(--muted);font-weight:600'>"+o[2]+"</small></div>"}
+sel.addEventListener("change",pintar);pintar();
+const vh=document.getElementById("v-home"),vt=document.getElementById("v-tut");
+function ruta(){const h=location.hash.slice(1),t=h==="tutoriales";vt.hidden=!t;vh.hidden=t;if(t){window.scrollTo(0,0)}else if(h){const e=document.getElementById(h);if(e)e.scrollIntoView()}}
+window.addEventListener("hashchange",ruta);ruta();
+const APK_URL="";
+const apk=document.getElementById("apk");
+if(APK_URL){apk.href=APK_URL;apk.setAttribute("download","")}else{apk.addEventListener("click",e=>{e.preventDefault();document.getElementById("apkmsg").hidden=false})}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth"})));
+</script>
+</body>
+</html>
